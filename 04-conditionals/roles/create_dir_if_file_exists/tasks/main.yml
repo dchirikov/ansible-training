@@ -1,0 +1,13 @@
+- name: "Get file status"
+  stat:
+   path: /tmp/file
+  register: stat_file
+
+- name: "Debug"
+  debug:
+    msg: "{{ stat_file }}"
+
+- name: "Print message if size of file > 0"
+  debug:
+    msg: "Conditional message"
+  when: stat_file.stat.exists and  stat_file.stat.size > 0

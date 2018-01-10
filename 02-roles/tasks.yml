@@ -1,0 +1,4 @@
+- hosts: vm
+  roles:
+  - create_dir
+  - render_template

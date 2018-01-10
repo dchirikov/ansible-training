@@ -1,0 +1,11 @@
+- hosts: vm
+  tasks:
+  - name: "Print kernel version"
+    debug:
+      msg: "{{ ansible_kernel }}"
+
+  - name: "Generate template"
+    template:
+      src: templates/uname.out.j2
+      dest: /tmp/uname.out
+

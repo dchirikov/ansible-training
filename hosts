@@ -1,0 +1,14 @@
+#### Single host (needs to be resolva be resolvable)
+#vm
+
+
+#### Single host with IP defined manually
+#vm ansible_host=__IP__
+
+
+#### Define group
+#[vm]
+#__IP__OR__HOSTNAME__1__
+#__IP__OR__HOSTNAME__2__
+
+

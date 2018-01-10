@@ -1,0 +1,11 @@
+- hosts: vm
+  tasks:
+
+  - name: "Create directory"
+    file:
+      path: /tmp/test
+      state: directory
+
+  - name: "Print message"
+    debug:
+      msg: "Hello world!"

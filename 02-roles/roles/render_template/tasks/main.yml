@@ -1,0 +1,8 @@
+- name: "Debug"
+  debug:
+    msg: "Will render a template in a second"
+
+- name: "Render template"
+  template:
+    src: hostname.out.j2
+    dest: /tmp/config/hostname.out

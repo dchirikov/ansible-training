@@ -1,0 +1,9 @@
+- hosts: vm
+  roles:
+
+  - role: role_with_passed_variable
+    var1: string1
+
+  - role: role_with_default_variable
+
+  - role: role_with_global_variable

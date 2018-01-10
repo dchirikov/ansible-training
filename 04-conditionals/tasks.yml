@@ -1,0 +1,3 @@
+- hosts: vm
+  roles:
+  - role: create_dir_if_file_exists

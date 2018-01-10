@@ -1,0 +1,18 @@
+- hosts: vm
+  tasks:
+  - name: "Generate random password"
+    set_fact:
+      password: "{{ lookup('password', '/tmp/password.txt chars=ascii_letters') }}"
+
+  - name: "Print password"
+    debug:
+      msg: "Password is {{ password }}"
+
+  - name: "Read csv file"
+    set_fact:
+      csv: "{{ lookup('csvfile', 'second file=table.csv delimiter=,') }}"
+
+  - name: "Print second from csv"
+    debug:
+      msg: "{{ csv }}"
+

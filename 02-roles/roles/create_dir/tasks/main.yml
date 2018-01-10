@@ -1,0 +1,8 @@
+- name: 'Debug'
+  debug:
+    msg: 'About to create dir'
+
+- name: "Create dir"
+  file:
+    path: /tmp/config
+    state: directory
