@@ -1,0 +1,11 @@
+- hosts: vm
+  tasks:
+  - name: Setup packages
+    yum:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    with_items:
+    - name: screen
+      state: present
+    - name: NetworkManager
+      state: absent

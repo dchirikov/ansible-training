@@ -1,0 +1,68 @@
+- name: Get root password
+  set_fact:
+    mysql_root_pwd: "{{ lookup('password',
+                          '/tmp/mysql-root.txt
+                           chars=ascii_letters,digits,hexdigits') }}"
+
+- name: Install MariaDB packages
+  yum:
+   name: '{{ item }}'
+   state: present
+  with_items:
+  - mariadb
+  - mariadb-server
+  - MySQL-python
+
+- name: Render /etc/my.cnf
+  template:
+    src: etc_my.cnf.j2
+    dest: /etc/my.cnf
+    backup: yes
+  notify: Restart mariadb
+
+- name: Render /root/.my.cnf
+  template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+    backup: yes
+
+- name: Enable MariaDB service
+  service:
+    name: mariadb
+    enabled: yes
+
+- name: Start MariaDB service
+  service:
+    name: mariadb
+    state: started
+
+- meta: flush_handlers
+
+##
+# Make MariaDB production-ready
+##
+
+- name: Set MariaDB's root pasword
+  mysql_user:
+    config_file: /root/.my.cnf
+    name: root
+    password: '{{ mysql_root_pwd }}'
+    host_all: yes
+    check_implicit_admin: yes
+    state: present
+
+- name: Remove anonymous users
+  mysql_user:
+    config_file: /root/.my.cnf
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: Remove test db
+  mysql_db:
+    config_file: /root/.my.cnf
+    name: test
+    state: absent

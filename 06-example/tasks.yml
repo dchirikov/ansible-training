@@ -1,0 +1,4 @@
+- hosts: vm
+  roles:
+  - role: yum_update
+  - role: install_mysql

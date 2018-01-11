@@ -1,0 +1,7 @@
+- name: Yum update kernel
+  yum:
+    name: kernel   # can be '*' to update all packages
+    state: latest
+  notify:
+  - Reboot host
+  - Wait host
