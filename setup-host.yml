@@ -1,0 +1,26 @@
+- hosts: vm
+  tasks:
+  - name: Install packages
+    yum:
+      state: present
+      name: "{{ item }}"
+    with_items:
+    - ansible
+    - git
+    - screen
+    - vim
+
+  - name: Configure eth1 interface
+    blockinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-eth1
+      create: yes
+      block: |
+        NAME=eth1
+        DEVICE=eth1
+        IPADDR=10.141.255.254
+        PREFIX=16
+    register: ifcfg_changed
+
+  - name: Restart eth1
+    shell: ifdown eth1 && ifup eth1
+    when: ifcfg_changed.changed
